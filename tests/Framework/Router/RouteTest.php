@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework;
+namespace Framework\Router;
 
 use Cheremhovo1990\Framework\Router\Route;
 use Laminas\Diactoros\ServerRequest;
