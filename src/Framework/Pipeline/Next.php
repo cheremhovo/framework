@@ -4,6 +4,7 @@ namespace Cheremhovo1990\Framework\Pipeline;
 
 use Cheremhovo1990\Framework\Resolver;
 use Cheremhovo1990\Framework\RequestHandlerWrapper;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -12,14 +13,17 @@ class Next
 {
     protected \SplQueue $queue;
     private RequestHandlerInterface $controller;
+    private ContainerInterface $container;
 
-    private Resolver $resolver;
-
-    public function __construct(\SplQueue $queue, RequestHandlerInterface $controller)
+    public function __construct(
+        \SplQueue $queue,
+        RequestHandlerInterface $controller,
+        ContainerInterface $container,
+    )
     {
         $this->queue = $queue;
         $this->controller = $controller;
-        $this->resolver = new Resolver();
+        $this->container = $container;
     }
 
     public function __invoke(ServerRequestInterface $request)
@@ -33,6 +37,11 @@ class Next
 
     protected function getMiddleware(): MiddlewareInterface
     {
-        return $this->resolver->resolve($this->queue->dequeue());
+        $middleware = $this->queue->dequeue();
+        if (is_string($middleware)) {
+            return $this->container->get($middleware);
+        } else {
+            return $middleware;
+        }
     }
 }

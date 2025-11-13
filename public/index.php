@@ -1,9 +1,8 @@
 <?php
 
-use App\Controller\DefaultController;
+use Cheremhovo1990\Framework\Container\Container;
 use Cheremhovo1990\Framework\Pipeline\Pipeline;
 use Cheremhovo1990\Framework\RequestHandlerWrapper;
-use Cheremhovo1990\Framework\Resolver;
 use Cheremhovo1990\Framework\Router\RouteCollection;
 use Cheremhovo1990\Framework\Router\Router;
 use Laminas\Diactoros\Response\HtmlResponse;
@@ -11,39 +10,31 @@ use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 ### Initialization
 
+$container = new Container();
 $routes = new RouteCollection();
 
-$routes->get('default', '/', DefaultController::class);
-
-$routes->get('about', '/about', function () {
-    $request = ServerRequestFactory::fromGlobals();
-    $name = $request->getQueryParams()['name'] ?: 'Guest';
-    return 'hello ' . $name . '!';
-});
+require __DIR__ . '/../config/routes.php';
 
 $router = new Router($routes);
-$resolver = new Resolver();
-$pipeline = new Pipeline();
+$pipeline = new Pipeline($container);
 
-$pipeline->pipe(\App\Middleware\ProfileMiddleware::class);
-$pipeline->pipe(function (ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface {
-    $response = $handler->handle($request);
-    return $response->withHeader('X-Developer-email', 'cheremhovo1990@yandex.ru');
-});
+require __DIR__ . '/../config/pipeline.php';
 
 ### Running
 $request = ServerRequestFactory::fromGlobals();
 
 /** @var callable $controller */
 $controller = $router->match($request);
-$controller = function (ServerRequestInterface $request) use ($controller, $resolver): ResponseInterface {
-    $response = $resolver->resolve($controller)($request);
+$controller = function (ServerRequestInterface $request) use ($controller, $container): ResponseInterface {
+    if (is_string($controller)) {
+        $controller = $container->get($controller);
+    }
+    $response = ($controller)($request);
     if (!$response instanceof ResponseInterface) {
         if (is_string($response)) {
             $response = new HtmlResponse($response);
