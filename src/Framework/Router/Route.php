@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheremhovo1990\Framework\Router;
 
-use Cheremhovo1990\Framework\Helpers\StringHelper;
+use Cheremhovo1990\Framework\Helper\StringHelper;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Route implements RouteInterface

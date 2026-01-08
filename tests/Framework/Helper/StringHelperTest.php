@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Test\Framework\Helpers;
+namespace Test\Framework\Helper;
 
-use Cheremhovo1990\Framework\Helpers\StringHelper;
+use Cheremhovo1990\Framework\Helper\StringHelper;
 use PHPUnit\Framework\TestCase;
 
 class StringHelperTest extends TestCase

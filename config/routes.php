@@ -3,7 +3,7 @@
 /** @var Cheremhovo1990\Framework\Router\RouteCollection $routeCollection  */
 
 use Cheremhovo1990\Framework\App;
-use Cheremhovo1990\Framework\Helpers\StringHelper;
+use Cheremhovo1990\Framework\Helper\StringHelper;
 use Cheremhovo1990\Framework\Router\RouterMapController;
 use Laminas\Diactoros\ServerRequestFactory;
 

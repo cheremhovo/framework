@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Test\Framework\Helpers;
+namespace Test\Framework\Helper;
 
-use Cheremhovo1990\Framework\Helpers\UrlHelper;
+use Cheremhovo1990\Framework\Helper\UrlHelper;
 use Cheremhovo1990\Framework\Router\Route;
 use Cheremhovo1990\Framework\Router\RouteCollection;
 use Cheremhovo1990\Framework\Router\Router;

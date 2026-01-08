@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheremhovo1990\Framework\Helpers;
+namespace Cheremhovo1990\Framework\Helper;
 
 use Cheremhovo1990\Framework\Router\Router;
 

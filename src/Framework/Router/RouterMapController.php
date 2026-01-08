@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cheremhovo1990\Framework\Router;
 
-use Cheremhovo1990\Framework\Helpers\StringHelper;
-use Cheremhovo1990\Framework\Helpers\UrlHelper;
+use Cheremhovo1990\Framework\Helper\StringHelper;
+use Cheremhovo1990\Framework\Helper\UrlHelper;
 use Cheremhovo1990\Framework\Router\Attribute\Route;
 use Cheremhovo1990\Framework\Router\Attribute\RouteGroup;
 use ReflectionClass;

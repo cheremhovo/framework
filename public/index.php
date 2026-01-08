@@ -9,7 +9,7 @@ use Cheremhovo1990\Framework\Router\Router;
 use Laminas\Diactoros\Response\TextResponse;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
-use Test\Framework\Helpers\UrlHelper;
+use Cheremhovo1990\Framework\Helper\UrlHelper;
 
 require __DIR__ . '/../vendor/autoload.php';
 
