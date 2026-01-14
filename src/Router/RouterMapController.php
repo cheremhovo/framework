@@ -61,7 +61,8 @@ class RouterMapController
                         $attribute->pattern,
                         [$this->reflection->getName(), '__invoke'],
                         $attribute->methods,
-                        $attribute->options
+                        $attribute->options,
+                        $attribute->middlewares
                     );
                 } else {
                     throw new RouteMapControllerException('Method "__invoke" not found in class "' . $this->reflection . '"');
@@ -97,7 +98,8 @@ class RouterMapController
                             $this->concatenateString($this->prefixPattern, $attribute->pattern, '/'),
                             [$this->reflection->getName(), $method->getName()],
                             $attribute->methods,
-                            $attribute->options
+                            $attribute->options,
+                            $attribute->middlewares
                         );
                     }
                 }
@@ -150,7 +152,8 @@ class RouterMapController
         string $pattern,
         array $method,
         array $methods = [],
-        array $options = []
+        array $options = [],
+        array $middlewares = []
     )
     {
         $this->results[] = [
@@ -158,7 +161,8 @@ class RouterMapController
             $pattern,
             $method,
             $methods,
-            $options
+            $options,
+            $middlewares
         ];
     }
 }

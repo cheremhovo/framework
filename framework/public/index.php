@@ -35,6 +35,9 @@ $controller = $router->match($request);
 foreach ($controller->arguments as $key => $argument) {
     $request = $request->withAttribute($key, $argument);
 }
+foreach ($controller->middlewares as $middleware) {
+    $pipeline->pipe($middleware);
+}
 $handlerController = new HandlerController($controller);
 try {
     $response = $pipeline($request, $handlerController);

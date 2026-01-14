@@ -14,19 +14,19 @@ class RouteCollection
         $this->routes[] = $route;
     }
 
-    public function any(string $name, string $pattern, $controller, array $methods = [], array $options = [])
+    public function any(string $name, string $pattern, $controller, array $methods = [], array $options = [], array $middlewares = [])
     {
-        $this->addRoute(new Route($name, $pattern, $controller, $methods, $options));
+        $this->addRoute(new Route($name, $pattern, $controller, $methods, $options, $middlewares));
     }
 
-    public function get(string $name, string $pattern, $controller, array $options =[])
+    public function get(string $name, string $pattern, $controller, array $options = [], array $middlewares = [])
     {
-        $this->addRoute(new Route($name, $pattern, $controller, ['GET'], $options));
+        $this->addRoute(new Route($name, $pattern, $controller, ['GET'], $options, $middlewares));
     }
 
-    public function post(string $name, string $pattern, $controller, array $options =[])
+    public function post(string $name, string $pattern, $controller, array $options = [], array $middlewares = [])
     {
-        $this->addRoute(new Route($name, $pattern, $controller, ['POST'], $options));
+        $this->addRoute(new Route($name, $pattern, $controller, ['POST'], $options, $middlewares));
     }
 
     public function getRoutes(): array

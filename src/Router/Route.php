@@ -26,14 +26,23 @@ class Route implements RouteInterface
     private array $options;
 
     private array $keys = [];
+    private array $middlewares;
 
-    public function __construct(string $name, string $pattern, $controller, array $methods = [], array $options = [])
+    public function __construct(
+        string $name,
+        string $pattern,
+        $controller,
+        array $methods = [],
+        array $options = [],
+        array $middlewares = []
+    )
     {
         $this->name = $name;
         $this->pattern = '/' . StringHelper::replaceStart('/', '', $pattern);
         $this->controller = $controller;
         $this->methods = $methods;
         $this->options = $options;
+        $this->middlewares = $middlewares;
     }
 
     public function match(ServerRequestInterface $request): null|ResultRoute
@@ -51,7 +60,7 @@ class Route implements RouteInterface
         foreach ($this->keys as $key) {
             $arguments[$key] = $matches[$key];
         }
-        $result = new ResultRoute($this->controller, $arguments, $this->options);
+        $result = new ResultRoute($this->controller, $arguments, $this->options, $this->middlewares);
         return $result;
     }
 

@@ -11,11 +11,13 @@ class ResultRoute
     public array $arguments;
 
     public array $options;
+    public array $middlewares;
 
-    public function __construct($controller, $arguments = [], $options = [])
+    public function __construct($controller, array $arguments = [], array $options = [], array $middlewares = [])
     {
         $this->controller = $controller;
         $this->arguments = $arguments;
         $this->options = $options;
+        $this->middlewares = $middlewares;
     }
 }
